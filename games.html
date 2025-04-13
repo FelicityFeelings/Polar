@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Rows with Snowfall</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #000000;
+			overflow-y: scroll;
+			position: relative;
+		}
+
+		.snowflake {
+			position: fixed;
+			top: -10px;
+			width: 3px;
+			height: 3px;
+			background-color: white;
+			border-radius: 50%;
+			box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+			opacity: 0.7;
+			pointer-events: none;
+		}
+
+		#search {
+			display: block;
+			margin: 20px auto;
+			padding: 2.1vh;
+			width: 50vw;
+			border: none;
+			border-radius: 111px;
+			background: linear-gradient(46deg, #FFFFFF, #222221);
+			color: #222221;
+			font-size: 1rem;
+			outline: none;
+			z-index: 10;
+			position: relative;
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			margin: 20px 0;
+		}
+
+		.image-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin: 10px 0;
+			gap: 10px;
+			transition: all 0.3s ease;
+		}
+
+		.image-container.row {
+			flex-direction: row;
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			scrollbar-width: none; /* Firefox */
+		}
+
+		.image-container.row::-webkit-scrollbar {
+			display: none; /* Chrome, Safari, Edge */
+		}
+
+		.rounded-image {
+			width: 150px;
+			height: 150px;
+			object-fit: cover;
+			margin: 5px;
+			border-radius: 15px;
+			transition: transform 0.3s ease-in-out;
+			position: relative;
+			outline: none;
+		}
+
+		.rounded-image:hover {
+			transform: scale(1.1);
+			outline: none;
+		}
+
+		.rounded-image:focus {
+			outline: none;
+		}
+
+		.tooltip {
+			position: fixed;
+			background-color: rgba(0, 0, 0, 0.7);
+			color: white;
+			border-radius: 5px;
+			padding: 5px 10px;
+			font-size: 1rem;
+			display: none;
+			pointer-events: none;
+			z-index: 9999;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="snowfall"></div>
+	<input type="text" id="search" placeholder="Search games...">
+	<div id="tooltip" class="tooltip"></div>
+
+	<div class="container">
+		<div class="image-container">
+			<a href="https://example.com" target="_self">
+				<img src="https://ssssaawntadr3amquesti0n-mark-yyyyy-8r.sitiodinamico.cl/images/games/1-min.png" alt="1" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://m.media-amazon.com/images/I/31SAP3S60vL.png" alt="10 Bullets" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxRDFWEa-fAKhkaKlTlCKAaIFg3Y0eN-Jdj5JEvzuccPw42BwwaAnzZ_v0BMNJxHnOuFs&usqp=CAU" alt="12 Mini Battles" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-wDyrUDPQKy5G-nNTUNM0UzoRldrqqPXWvQ&s" alt="1 on 1 Soccer" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://i1.sndcdn.com/artworks-y2ECSCErLxkflCDS-ktQA3Q-t500x500.jpg" alt="1v1.lol" class="rounded-image">
+			</a>
+		</div>
+
+		<div class="image-container">
+			<a href="https://example.com" target="_self">
+				<img src="https://m.media-amazon.com/images/I/41RCIHMHFDL.png" alt="2048" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://play-lh.googleusercontent.com/tPr661utQmQBG4c2uqY2KcgvQ9a_s36iMg8E0aCtYERKgR7ptV9x30tdqU0dj6pocA" alt="2048 Cupcakes" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://cdn2.steamgriddb.com/icon_thumb/9cd4fbcdff1e2235166f1ccd5b4398ea.png" alt="3Dash" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://evilgames.eu/flashgames/thumb/60-seconds-burger-run.png" alt="60 Secounds Burger Run" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://evilgames.eu/img/flash/og-60-seconds-santa-run.png" alt="60 Secounds Santa Run" class="rounded-image">
+			</a>
+		</div>
+
+		<div class="image-container">
+			<a href="https://example.com" target="_self">
+				<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQRkATxfobq6sxn7jw4JOAu8BakC06PCKi3YyfLpAueP5sIv-kZ_KwzwKpQ563zr04ZXRbi" alt="Angry Birds Space" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://a.silvergames.com/j/b/apple-shooter.jpg" alt="Apple Shooter" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://play-lh.googleusercontent.com/R8fga13v4t2PZ-aHJSieBvYGv48B6zL9o3V-T1mfX_K1MOJfQrH02J2Uzb7yd2N7pA" alt="Apple Worm" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://a-smallworldcup.com/upload/imgs/a-small-world-cup-logo.png" alt="A Small World Cup" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkQJ02x6DNn01TvXVolCgpV3oovAbcvPTgRg&s" alt="Avalanche" class="rounded-image">
+			</a>
+		</div>
+
+		<div class="image-container">
+			<a href="https://example.com" target="_self">
+				<img src="https://a.silvergames.com/j/b/awesome-pirates.jpg" alt="Awesome Pirates" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://play-lh.googleusercontent.com/Rm3ZDq6KFtCy8-WMd0Adhh3xa_vkvc5kuSyUpwIgGiVg9HFeNUJCW8icBt1f3KN_66U" alt="Awesome Tanks" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://www.coolmathgames.com/sites/default/files/awesome-tanks-2-icon.png" alt="Awesome Tanks 2" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://data.abatek.com/images/games/backrooms-min.jpg" alt="The Backrooms" class="rounded-image">
+			</a>
+			<a href="https://example.com" target="_self">
+				<img src="https://play-lh.googleusercontent.com/qsajZ3WxItUCjA08_AaZyxbmRpPT87uHiYOyDU-e5444ALBZe23nPZYi7pTU5nFCOPk" alt="The Backrooms 2D" class="rounded-image">
+			</a>
+		</div>
+	</div>
+
+	<script>
+		let snowflakes = [];
+		let numberOfSnowflakes = 50;
+		let browserWidth = window.innerWidth;
+		let browserHeight = window.innerHeight;
+
+		function setupSnowfall() {
+			let container = document.getElementById("snowfall");
+			for (let i = 0; i < numberOfSnowflakes; i++) {
+				let snowflake = document.createElement("div");
+				snowflake.classList.add("snowflake");
+				container.appendChild(snowflake);
+				let size = Math.random() * 4 + 3;
+				let xPos = Math.random() * browserWidth;
+				let yPos = Math.random() * browserHeight;
+				let speed = Math.random() * 3 + 2;
+				snowflake.style.width = size + "px";
+				snowflake.style.height = size + "px";
+				snowflake.style.left = xPos + "px";
+				snowflake.style.top = yPos + "px";
+				snowflakes.push({ element: snowflake, speed, xPos, yPos });
+			}
+			requestAnimationFrame(updateSnowflakes);
+		}
+
+		function updateSnowflakes() {
+			for (let flake of snowflakes) {
+				flake.yPos += flake.speed;
+				if (flake.yPos > browserHeight) {
+					flake.yPos = -10;
+					flake.xPos = Math.random() * browserWidth;
+				}
+				flake.element.style.top = flake.yPos + "px";
+				flake.element.style.left = flake.xPos + "px";
+			}
+			requestAnimationFrame(updateSnowflakes);
+		}
+
+		setupSnowfall();
+
+		const tooltip = document.getElementById('tooltip');
+		const images = document.querySelectorAll('.rounded-image');
+		images.forEach(image => {
+			image.addEventListener('mouseenter', () => {
+				tooltip.textContent = image.alt;
+				tooltip.style.display = 'block';
+			});
+			image.addEventListener('mousemove', (e) => {
+				tooltip.style.left = `${e.clientX + 10}px`;
+				tooltip.style.top = `${e.clientY + 10}px`;
+			});
+			image.addEventListener('mouseleave', () => {
+				tooltip.style.display = 'none';
+			});
+		});
+
+		const searchInput = document.getElementById('search');
+		searchInput.addEventListener('input', () => {
+			const query = searchInput.value.toLowerCase();
+			const imageContainers = document.querySelectorAll('.image-container');
+			imageContainers.forEach(container => {
+				let anyVisible = false;
+				container.querySelectorAll('.rounded-image').forEach(img => {
+					const match = img.alt.toLowerCase().includes(query);
+					img.style.display = match ? 'inline-block' : 'none';
+					if (match) anyVisible = true;
+				});
+				if (anyVisible) {
+					container.classList.add('row'); // Show images in a row
+				} else {
+					container.classList.remove('row'); // Remove row layout if no matches
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>
