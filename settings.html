@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Settings</title>
+	<link id="tab-icon" rel="icon"
+		href="https://upload.wikimedia.org/wikipedia/commons/4/4f/Google_Classroom_logo_2020.svg" type="image/png">
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+			overflow: hidden;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			position: relative;
+		}
+
+		.snowflake {
+			position: fixed;
+			top: -10px;
+			width: 3px;
+			height: 3px;
+			background-color: white;
+			border-radius: 50%;
+			box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+			opacity: 0.7;
+			pointer-events: none;
+			animation: fall linear infinite;
+			z-index: 0;
+		}
+
+		@keyframes fall {
+			0% {
+				transform: translateY(-10px) translateX(0);
+			}
+
+			50% {
+				transform: translateY(50vh) translateX(10px);
+			}
+
+			100% {
+				transform: translateY(100vh) translateX(-10px);
+			}
+		}
+
+		.container {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: rgba(255, 255, 255, 0.1);
+			border: 1px solid rgba(255, 255, 255, 0.3);
+			border-radius: 20px;
+			padding: 30px;
+			backdrop-filter: blur(10px);
+			color: #fff;
+			box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+			text-align: center;
+			z-index: 1;
+			max-width: 700px;
+			width: 95%;
+		}
+
+		.container h1 {
+			margin-bottom: 20px;
+			font-size: 28px;
+		}
+
+		.icons {
+			display: grid;
+			grid-template-columns: repeat(5, auto);
+			gap: 15px;
+			justify-content: center;
+		}
+
+		.icon-option {
+			background: rgba(255, 255, 255, 0.2);
+			border-radius: 12px;
+			padding: 5px;
+			cursor: pointer;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.icon-option:hover {
+			transform: scale(1.1);
+			box-shadow: 0 0 10px white;
+		}
+
+		.icon-option img {
+			width: 64px;
+			height: 64px;
+		}
+
+		/* Responsive design for mobile */
+		@media (max-width: 600px) {
+			.icons {
+				grid-template-columns: repeat(3, auto);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Tab Cloaker</h1>
+		<div class="icons">
+			<div class="icon-option" onclick="changeTabInfo('google-drive')" aria-label="Switch to Google Drive">
+				<img src="https://img.icons8.com/?size=100&id=ya4CrqO7PgnY&format=png&color=000000" alt="Google Drive">
+			</div>
+			<div class="icon-option" onclick="changeTabInfo('google-docs')" aria-label="Switch to Google Docs">
+				<img src="https://img.icons8.com/?size=100&id=v0YYnU84T2c4&format=png&color=000000" alt="Google Docs">
+			</div>
+			<div class="icon-option" onclick="changeTabInfo('google-classroom')" aria-label="Switch to Google Classroom">
+				<img src="https://img.icons8.com/?size=100&id=31057&format=png&color=000000" alt="Google Classroom">
+			</div>
+			<div class="icon-option" onclick="changeTabInfo('google-calendar')" aria-label="Switch to Google Calendar">
+				<img src="https://img.icons8.com/?size=100&id=WKF3bm1munsk&format=png&color=000000" alt="Google Calendar">
+			</div>
+			<div class="icon-option" onclick="changeTabInfo('gmail')" aria-label="Switch to Gmail">
+				<img src="https://img.icons8.com/?size=100&id=P7UIlhbpWzZm&format=png&color=000000" alt="Gmail">
+			</div>
+			<div class="icon-option" onclick="changeTabInfo('google-slides')" aria-label="Switch to Google Slides">
+				<img src="https://img.icons8.com/?size=100&id=joSAjc9l7dOp&format=png&color=000000" alt="Google Slides">
+			</div>
+			<div class="icon-option" onclick="changeTabInfo('google-sheets')" aria-label="Switch to Google Sheets">
+				<img src="https://img.icons8.com/?size=100&id=6yIWVyFTE0no&format=png&color=000000" alt="Google Sheets">
+			</div>
+			<div class="icon-option" onclick="changeTabInfo('ixl')" aria-label="Switch to IXL">
+				<img src="https://image.influenster.com/eyJidWNrZXQiOiJpbmZsdWVuc3Rlcl9wcm9kdWN0aW9uIiwia2V5IjoibWVkaWEvcHJvZHVjdC9pbWFnZS81MTY3M2Q0NTA4MDM3MjBkMjQ0YmIxODkyYjJmNWI1MC5wbmciLCJyZXNpemUiOnsid2lkdGgiOjUwMH19" alt="IXL" style="width: 48px; height: 48px; margin: 8px auto; display: block;">
+			</div>
+			<!-- Replaced Google Search with Canva -->
+			<div class="icon-option" onclick="changeTabInfo('canva')" aria-label="Switch to Canva">
+				<img src="https://cdn.prod.website-files.com/638ec3d4fcf5e083b0519cf8/65845505ac08fff6b48fd1c9_Canva_icon_2021.svg" alt="Canva">
+			</div>
+			<!-- New i-Ready Button -->
+			<div class="icon-option" onclick="changeTabInfo('i-Ready')" aria-label="Switch to i-Ready">
+				<img src="https://assets.clever.com/resource-icons/apps/5148b6242e35482071000011/icon_964188f.png" alt="i-Ready">
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function createSnowflake() {
+			const snowflake = document.createElement('div');
+			snowflake.classList.add('snowflake');
+			snowflake.style.left = Math.random() * window.innerWidth + 'px';
+			snowflake.style.animationDuration = (2 + Math.random() * 5) + 's';
+			snowflake.style.opacity = Math.random();
+			snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+			document.body.appendChild(snowflake);
+			setTimeout(() => { snowflake.remove(); }, 8000);
+		}
+		setInterval(createSnowflake, 100);
+
+		function changeTabInfo(selectedSite) {
+			const icon = document.getElementById("tab-icon");
+			const titleMap = {
+				"google-drive": ["My Drive", "https://img.icons8.com/?size=100&id=ya4CrqO7PgnY&format=png&color=000000"],
+				"google-docs": ["Google Docs", "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://docs.google.com/document/u/0/?tgif=d&size=16"],
+				"google-classroom": ["Home", "https://img.icons8.com/?size=100&id=31057&format=png&color=000000"],
+				"google-calendar": ["Google Calendar", "https://img.icons8.com/?size=100&id=WKF3bm1munsk&format=png&color=000000"],
+				"gmail": ["Gmail", "https://img.icons8.com/?size=100&id=P7UIlhbpWzZm&format=png&color=000000"],
+				"google-slides": ["Google Slides", "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://docs.google.com/presentation/u/0/?tgif=d&size=16"],
+				"google-sheets": ["Google Sheets", "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://docs.google.com/spreadsheets/d/1tO7y1Ir61sq9Q5ZDgCet57nLDhKJz3EZ4Jf74QHyeoU/edit?gid=0&size=16#gid=0"],
+				"i-Ready": ["Math To Do, i-Ready", "https://assets.clever.com/resource-icons/apps/5148b6242e35482071000011/icon_964188f.png"],
+				"ixl": ["IXL", "https://image.influenster.com/eyJidWNrZXQiOiJpbmZsdWVuc3Rlcl9wcm9kdWN0aW9uIiwia2V5IjoibWVkaWEvcHJvZHVjdC9pbWFnZS81MTY3M2Q0NTA4MDM3MjBkMjQ0YmIxODkyYjJmNWI1MC5wbmciLCJyZXNpemUiOnsid2lkdGgiOjUwMH19"],
+				"canva": ["Canva", "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.canva.com"]
+			};
+
+			if (titleMap[selectedSite]) {
+				document.title = titleMap[selectedSite][0];
+				icon.href = titleMap[selectedSite][1];
+			}
+		}
+	</script>
+</body>
+
+</html>
