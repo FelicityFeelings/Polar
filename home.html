@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polar v2</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Center content */
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .content {
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        h1:hover {
+            transform: scale(1.5);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .button {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .button img {
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .button:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        }
+
+        #hoverText {
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 10px;
+        }
+
+        /* Snowflake container styles */
+        #snowflakeContainer {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .snowflake {
+            position: fixed;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+            width: 4px;
+            height: 4px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>Polar v2</h1>
+        <div class="button-container">
+            <a href="games.html" target="_self">
+                <button class="button" onmouseover="showText('Games')" onmouseout="hideText()">
+                    <img src="https://img.icons8.com/?size=100&id=C6pSWdxiAGbl&format=png&color=000000" alt="Games">
+                </button>
+            </a>
+            <a href="apps.html" target="_self">
+                <button class="button" onmouseover="showText('Apps')" onmouseout="hideText()">
+                    <img src="https://img.icons8.com/?size=100&id=JCtrMfKlpJVk&format=png&color=000000" alt="Apps">
+                </button>
+            </a>
+            <!-- Removed Search button and added a direct link to search.html -->
+            <a href="search.html" target="_self">
+                <button class="button" onmouseover="showText('Movies')" onmouseout="hideText()">
+                    <img src="https://files.catbox.moe/j2yraq.png" alt="Search">
+                </button>
+            </a>
+            <a href="settings.html" target="_self">
+                <button class="button" onmouseover="showText('Settings')" onmouseout="hideText()">
+                    <img src="https://img.icons8.com/?size=100&id=t59KdTKkmnPH&format=png&color=000000" alt="Settings">
+                </button>
+            </a>
+        </div>
+        <h2 id="hoverText"></h2>
+    </div>
+
+    <div id="snowflakeContainer">
+        <span class="snowflake"></span>
+    </div>
+
+    <script>
+        function showText(text) {
+            const hoverText = document.getElementById("hoverText");
+            hoverText.textContent = text;
+            hoverText.style.opacity = "1";
+        }
+
+        function hideText() {
+            document.getElementById("hoverText").style.opacity = "0";
+        }
+
+        // Snowfall Animation Setup
+        let snowflakes = [];
+        let browserWidth;
+        let browserHeight;
+        let numberOfSnowflakes = 50;
+        let resetPosition = false;
+
+        let enableAnimations = true;
+        let reduceMotionQuery = matchMedia("(prefers-reduced-motion)");
+
+        function setAccessibilityState() {
+            if (reduceMotionQuery.matches) {
+                enableAnimations = false;
+            } else {
+                enableAnimations = true;
+            }
+        }
+
+        setAccessibilityState();
+        reduceMotionQuery.addListener(setAccessibilityState);
+
+        function setup() {
+            if (enableAnimations) {
+                window.addEventListener("DOMContentLoaded", generateSnowflakes, false);
+                window.addEventListener("resize", setResetFlag, false);
+            }
+        }
+        setup();
+
+        class Snowflake {
+            constructor(element, speed, xPos, yPos) {
+                this.element = element;
+                this.speed = speed;
+                this.xPos = xPos;
+                this.yPos = yPos;
+                this.scale = 1;
+                this.counter = 0;
+                this.sign = Math.random() < 0.5 ? 1 : -1;
+                this.element.style.opacity = (3 + Math.random()) / 3;
+            }
+
+            update(delta) {
+                this.counter += (this.speed / 5000) * delta;
+                this.xPos += (this.sign * delta * this.speed * Math.cos(this.counter)) / 40;
+                this.yPos += Math.sin(this.counter) / 40 + (this.speed * delta) / 30;
+                this.scale = 0.5 + Math.abs((10 * Math.cos(this.counter)) / 20);
+                setTransform(Math.round(this.xPos), Math.round(this.yPos), this.scale, this.element);
+
+                if (this.yPos > browserHeight) {
+                    this.yPos = -50;
+                }
+            }
+        }
+
+        function setTransform(xPos, yPos, scale, el) {
+            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0) scale(${scale}, ${scale})`;
+        }
+
+        function generateSnowflakes() {
+            let originalSnowflake = document.querySelector(".snowflake");
+            let snowflakeContainer = originalSnowflake.parentNode;
+            snowflakeContainer.style.display = "block";
+
+            browserWidth = document.documentElement.clientWidth;
+            browserHeight = document.documentElement.clientHeight;
+
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                let snowflakeClone = originalSnowflake.cloneNode(true);
+                snowflakeContainer.appendChild(snowflakeClone);
+
+                let initialXPos = getPosition(50, browserWidth);
+                let initialYPos = getPosition(50, browserHeight);
+                let speed = (5 + Math.random() * 25) * 1;
+
+                let snowflakeObject = new Snowflake(snowflakeClone, speed, initialXPos, initialYPos);
+                snowflakes.push(snowflakeObject);
+            }
+
+            snowflakeContainer.removeChild(originalSnowflake);
+            requestAnimationFrame(moveSnowflakes);
+        }
+
+        let frames_per_second = 60;
+        let frame_interval = 1000 / frames_per_second;
+        let previousTime = performance.now();
+        let delta = 1;
+
+        function moveSnowflakes(currentTime) {
+            delta = (currentTime - previousTime) / frame_interval;
+
+            if (enableAnimations) {
+                for (let i = 0; i < snowflakes.length; i++) {
+                    let snowflake = snowflakes[i];
+                    snowflake.update(delta);
+                }
+            }
+
+            previousTime = currentTime;
+
+            if (resetPosition) {
+                browserWidth = document.documentElement.clientWidth;
+                browserHeight = document.documentElement.clientHeight;
+
+                for (let i = 0; i < snowflakes.length; i++) {
+                    let snowflake = snowflakes[i];
+                    snowflake.xPos = getPosition(50, browserWidth);
+                    snowflake.yPos = getPosition(50, browserHeight);
+                }
+
+                resetPosition = false;
+            }
+
+            requestAnimationFrame(moveSnowflakes);
+        }
+
+        function getPosition(offset, size) {
+            return Math.round(-1 * offset + Math.random() * (size + 2 * offset));
+        }
+
+        function setResetFlag(e) {
+            resetPosition = true;
+        }
+    </script>
+</body>
+
+</html>
